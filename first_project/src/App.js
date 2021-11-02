@@ -1,45 +1,27 @@
 import './App.css';
-import {Message} from "./component/Message/Message";
-import React, {useEffect, useState} from "react";
+import {MessagesList} from "./component/MessagesList/MessagesList";
+import React, {useCallback, useEffect, useState} from "react";
+import {SendMessage} from "./component/SendMessage/SendMessage";
 
 function App () {
-    const [textMessage, setTextMessage] = useState('');
     const [messageList, setMessageList] = useState([]);
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        let massage = {}
-        massage.author = 'User';
-        massage.text = textMessage;
-        setMessageList(oldArray => [...oldArray, massage]);
-        console.log('отправил');
-        setTextMessage('')
-    }
-    const handleChange = (event) => {
-        setTextMessage(event.target.value);
-    }
-    useEffect(() => {
+    const handleSendMessage = useCallback((newMessage) => {
+        setMessageList((oldArray) => [...oldArray, newMessage]);
+    }, []);
 
-    }, [messageList]);
     useEffect(() => {
-        if (messageList.length > 0) {
+        if (messageList.length && messageList[messageList.length - 1].author === 'User') {
             const timer = setTimeout(() => {
-                if (messageList[messageList.length - 1].author === 'User') {
-                    let massage = {}
-                    massage.author = 'Bot';
-                    massage.text = 'Ok';
-                    setMessageList(oldArray => [...oldArray, massage]);
-                }
+                const newMessage = {author: 'Bot', text: 'OK'}
+                setMessageList((oldArray) => [...oldArray, newMessage]);
             }, 1000);
             return () => clearTimeout(timer);
         }
     }, [messageList]);
     return (
         <div className="App">
-            <Message messageList={messageList}/>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={textMessage} onChange={handleChange}/>
-                <input disabled={!textMessage} type="submit"/>
-            </form>
+            <MessagesList messageList={messageList}/>
+            <SendMessage onSendMessage={handleSendMessage}/>
         </div>
     );
 }
