@@ -1,11 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './SendMessage.scss'
+import Button from '@mui/material/Button';
+import {Send} from "@mui/icons-material";
+import {TextField} from "@mui/material";
 
 export const SendMessage = ({onSendMessage}) => {
     const [textMessage, setTextMessage] = useState('');
+    const inputRef = useRef(null);
     const handleChange = (event) => {
         setTextMessage(event.target.value);
     }
+    useEffect(() => {
+        inputRef.current?.focus();
+    });
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -15,12 +22,25 @@ export const SendMessage = ({onSendMessage}) => {
             id: `$message-${Date.now()}`
         };
         onSendMessage(newMessage);
-        setTextMessage('')
+        setTextMessage('');
+   
     }
-
     return <form className="send-message-form" onSubmit={handleSubmit}>
-        <input className="enter-text-input" placeholder="Enter message" type="text" value={textMessage}
-               onChange={handleChange}/>
-        <input className="send-button" disabled={!textMessage} type="submit"/>
+        <TextField
+            id="outlined-multiline-flexible"
+            className="style-multiline"
+            label="Enter message"
+            fullWidth
+            multiline
+            maxRows={4}
+            variant="filled"
+            value={textMessage}
+            size="small"
+            onChange={handleChange}
+            inputRef={inputRef}
+        />
+        <Button variant="contained" disabled={!textMessage} type="submit" endIcon={<Send/>}>
+            Send
+        </Button>
     </form>
 }

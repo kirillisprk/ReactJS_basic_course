@@ -9,10 +9,14 @@ body {
 }
 
 .App {
-    display: grid;
-    grid-template-rows: 1fr 100px;
-    height: 100vh;
-    max-width: 700px;
-    margin: 0 auto;
     padding: 16px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 16px;
+}
+
+.show-current-chat {
+    display: grid;
+    grid-template-rows: 80vh 1fr;
+    grid-gap: 16px;
 }
