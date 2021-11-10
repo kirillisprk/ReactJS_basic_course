@@ -1,0 +1,41 @@
+.message-list {
+  background: #607d8b;
+  border-radius: 16px;
+  color: white;
+  overflow: auto;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  grid-gap: 4px;
+}
+
+.message-in {
+  align-self: end;
+  background: #673ab7;
+  padding: 8px;
+  border-radius: 8px;
+  display: grid;
+  justify-items: end;
+  max-width: 80%;
+}
+
+.message-out {
+  align-self: start;
+  background: #424242;
+  padding: 8px;
+  border-radius: 8px;
+  display: grid;
+  justify-items: start;
+  max-width: 80%;
+}
+
+.author-title {
+  font-size: 10px;
+  opacity: 0.3;
+}
+
+.message-text {
+  font-size: 14px;
+  width: 99%;
+}

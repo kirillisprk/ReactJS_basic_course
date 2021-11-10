@@ -1,16 +1,31 @@
-import './App.css';
-import {Message} from "./component/Message/Message";
+import React from "react";
+import {BrowserRouter, Link, Routes, Route} from "react-router-dom";
+import Chats from "./component/Chats";
+import {Home} from "./component/Home";
+import {AppBar, Toolbar, Typography} from "@mui/material";
 
-const propsName = 'kirill'
+export const App = () => (
+    <BrowserRouter>
+        <AppBar position="static">
+            <Toolbar>
+                <Typography variant="h6" component="div" sx={{mr: 2}}>
+                    <Link to="/">Home</Link>
+                </Typography>
+                <Typography variant="h6" component="div">
+                    <Link to="/chats">Chats</Link>
+                </Typography>
+            </Toolbar>
+        </AppBar>
 
-function App () {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <Message name={propsName}/>
-            </header>
-        </div>
-    );
-}
+        <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="chats">
+                <Route index element={<Chats/>}/>
+                <Route path=":chatId" element={<Chats/>}/>
+            </Route>
+            <Route path="*" element={<h3>404</h3>}/>
+        </Routes>
+    </BrowserRouter>
+)
 
-export default App;
+

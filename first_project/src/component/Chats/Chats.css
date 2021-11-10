@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #455a64;
+}
+
+.App {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 16px;
+    height: 96vh;
+}
+
+.show-current-chat {
+    display: grid;
+    grid-template-rows: 80vh 1fr;
+    grid-gap: 16px;
+}
