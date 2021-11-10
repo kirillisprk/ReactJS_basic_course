@@ -1,51 +1,31 @@
-import './App.css';
-import {MessagesList} from "./component/MessagesList/MessagesList";
-import React, {useCallback, useEffect, useState} from "react";
-import {SendMessage} from "./component/SendMessage/SendMessage";
-import {ChatList} from "./component/ChatList/chatList";
-import {v4 as uuidv4} from 'uuid';
+import React from "react";
+import {BrowserRouter, Link, Routes, Route} from "react-router-dom";
+import Chats from "./component/Chats";
+import {Home} from "./component/Home";
+import {AppBar, Toolbar, Typography} from "@mui/material";
 
-function App () {
-    const [messageList, setMessageList] = useState([]);
-    const [chatList, setChatList] = useState([]);
-    const handleSendMessage = useCallback((newMessage) => {
-        setMessageList((oldArray) => [...oldArray, newMessage]);
-    }, []);
-    useEffect(() => {
-        if (messageList.length && messageList[messageList.length - 1].author === 'User') {
-            const timer = setTimeout(() => {
-                const newMessage = {
-                    author: 'Bot',
-                    text: 'OK',
-                    id: `$message-${Date.now()}`
-                }
-                setMessageList((oldArray) => [...oldArray, newMessage]);
-            }, 1000);
-            return () => clearTimeout(timer);
-        }
-    }, [messageList]);
-    useEffect(() => {
-        const countChat = 4;
-        for (let i = 1; i <= countChat; i++) {
-            const newChat = {
-                name: `Chat ${i}`,
-                id: uuidv4()
-            }
-            setChatList((oldArray) => [...oldArray, newChat])
-        }
+export const App = () => (
+    <BrowserRouter>
+        <AppBar position="static">
+            <Toolbar>
+                <Typography variant="h6" component="div" sx={{mr: 2}}>
+                    <Link to="/">Home</Link>
+                </Typography>
+                <Typography variant="h6" component="div">
+                    <Link to="/chats">Chats</Link>
+                </Typography>
+            </Toolbar>
+        </AppBar>
 
-    }, [])
-    return (
-        <div className="App">
-            <div>
-                <ChatList chatList={chatList}/>
-            </div>
-            <div className="show-current-chat">
-                <MessagesList messageList={messageList}/>
-                <SendMessage onSendMessage={handleSendMessage}/>
-            </div>
-        </div>
-    );
-}
+        <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="chats">
+                <Route index element={<Chats/>}/>
+                <Route path=":chatId" element={<Chats/>}/>
+            </Route>
+            <Route path="*" element={<h3>404</h3>}/>
+        </Routes>
+    </BrowserRouter>
+)
 
-export default App;
+

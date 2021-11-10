@@ -3,6 +3,7 @@ import './SendMessage.scss'
 import Button from '@mui/material/Button';
 import {Send} from "@mui/icons-material";
 import {TextField} from "@mui/material";
+import {v4 as uuidv4} from "uuid";
 
 export const SendMessage = ({onSendMessage}) => {
     const [textMessage, setTextMessage] = useState('');
@@ -19,7 +20,7 @@ export const SendMessage = ({onSendMessage}) => {
         const newMessage = {
             author: 'User',
             text: textMessage,
-            id: `$message-${Date.now()}`
+            id: uuidv4()
         };
         onSendMessage(newMessage);
         setTextMessage('');

@@ -1,15 +1,8 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
 import './message.scss'
 
 export const MessagesList = ({messageList}) => {
     const messageListRef = useRef(null);
-    useEffect(() => {
-            messageListRef.current?.scrollIntoView({
-                behavior: "auto"
-            });
-        },
-        [messageList]
-    )
     return <div ref={messageListRef} className="message-list">
         {messageList.map((message) => (
             <div key={message.id}
@@ -19,5 +12,6 @@ export const MessagesList = ({messageList}) => {
             </div>
         ))}
     </div>
+
 }
 
