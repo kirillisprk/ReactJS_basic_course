@@ -62,7 +62,7 @@ function Chats () {
     }, [historyMessage]);
 
     if (chatId && !(chatId in historyMessage)) {
-        return <Navigate replace to="/chats"></Navigate>
+        return <Navigate replace to="/chats"/>
     }
     return (
         <div className="App">
