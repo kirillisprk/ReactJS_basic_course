@@ -1,54 +1,36 @@
 import './Chats.css';
 import {MessagesList} from "../MessagesList/MessagesList";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import {SendMessage} from "../SendMessage/SendMessage";
 import {ChatList} from "../ChatList/chatList";
 import {Navigate, useParams} from "react-router-dom";
 import {v4 as uuidv4} from "uuid";
+import {useDispatch, useSelector} from "react-redux";
+import {addChat, deleteChat} from "../../store/Chats/actions";
+import {addMessage} from "../../store/Messages/actions";
+import {selectChats} from "../../store/Chats/selectors";
+import {selectMessageList} from "../../store/Messages/selectors";
 
 function Chats () {
     const {chatId} = useParams();
-    const [chatList, setChatList] = useState([]);
-    const [historyMessage, setHistoryMessage] = useState({});
-    const createChatList = (countChat) => {
-        if (!chatList.length) {
-            for (let i = 1; i <= countChat; i++) {
-                const newChat = {
-                    name: `Chat ${i}`,
-                    id: uuidv4()
-                }
-                setChatList((oldArray) => [...oldArray, newChat])
-            }
-        }
-    }
-    const initialHistoryMessage = (chatList) => {
-        if (chatList.length) {
-            for (let i = 0; i < chatList.length; i++) {
-                if (Object.keys(historyMessage).length === 0 ||
-                    Object.keys(historyMessage).filter(key => historyMessage[key] === chatList[i].id)) {
-                    setHistoryMessage((old) => ({...old, [chatList[i].id]: []}))
-                }
-            }
-        }
-    }
-    const handleSendMessage = useCallback(
-        (newMessage) => {
-            setHistoryMessage((oldArray) => ({
-                ...oldArray,
-                [chatId]: [...oldArray[chatId], newMessage],
-            }));
-        },
-        [chatId]);
-    useEffect(() => {
-        createChatList(4);
-    }, [])
-    useEffect(() => {
-        initialHistoryMessage(chatList);
-    }, [chatList])
+    const dispatch = useDispatch();
+    const chatList = useSelector(selectChats);
+    const messages = useSelector(selectMessageList);
+    const handleAddChat = useCallback((nameChat) => {
+        const newIDChat = uuidv4();
+        dispatch(addChat({name: nameChat, id: newIDChat}));
+
+    }, [dispatch]);
+    const handleDeleteChat = useCallback((idToDeleteChat) => {
+        dispatch(deleteChat(idToDeleteChat));
+    }, [dispatch]);
+    const handleSendMessage = useCallback((newMessage) => {
+        dispatch(addMessage(chatId, newMessage));
+    }, [dispatch, chatId]);
     useEffect(() => {
         if (
-            historyMessage[chatId]?.length &&
-            historyMessage[chatId][historyMessage[chatId].length - 1].author === 'User') {
+            messages[chatId]?.length &&
+            messages[chatId][messages[chatId].length - 1].author === 'User') {
             const timer = setTimeout(() => {
                 const newMessage = {
                     author: 'Bot',
@@ -59,18 +41,26 @@ function Chats () {
             }, 1000);
             return () => clearTimeout(timer);
         }
-    }, [historyMessage]);
+    }, [messages]);
 
-    if (chatId && !(chatId in historyMessage)) {
+    const getIdsChatList = () => {
+        return chatList.map(element => element.id)
+    }
+    useEffect(() => {
+        getIdsChatList();
+    }, [chatList])
+
+    if (chatId && !(getIdsChatList().includes(chatId))) {
+        console.log('replace URL',)
         return <Navigate replace to="/chats"/>
     }
     return (
         <div className="App">
             <div>
-                <ChatList chatList={chatList}/>
+                <ChatList onDelete={handleDeleteChat} onAddChat={handleAddChat} chatList={chatList}/>
             </div>
             {chatId && <div className="show-current-chat">
-                <MessagesList messageList={historyMessage[chatId]}/>
+                <MessagesList messageList={messages[chatId]}/>
                 <SendMessage onSendMessage={handleSendMessage}/>
             </div>}
         </div>

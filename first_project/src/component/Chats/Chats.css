@@ -11,13 +11,12 @@ body {
 .App {
     padding: 16px;
     display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 16px;
-    height: 96vh;
+    grid-template-columns: 260px 1fr;
+    grid-gap: 16px;
 }
 
 .show-current-chat {
     display: grid;
-    grid-template-rows: 80vh 1fr;
+    grid-template-rows: 1fr;
     grid-gap: 16px;
 }
