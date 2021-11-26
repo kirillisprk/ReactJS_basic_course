@@ -35,7 +35,7 @@ export const Article = () => {
                     {articles.map((art) => (
                         <ListItem key={art.id} alignItems="flex-start">
                             <ListItemText
-                                primary="Brunch this weekend?"
+                                primary={art.title}
                                 secondary={
                                     <React.Fragment>
                                         <Typography
@@ -43,7 +43,7 @@ export const Article = () => {
                                             component="span"
                                             variant="body2"
                                             color="text.primary">
-                                            {art.title}
+
                                         </Typography>
                                         {art.summary}
                                         <Typography variant="caption" display="block" gutterBottom>
