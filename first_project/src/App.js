@@ -1,7 +1,7 @@
 import React from "react";
 import {BrowserRouter, Link, Routes, Route} from "react-router-dom";
 import Chats from "./component/Chats";
-import {Home} from "./component/Home";
+import {Article} from "./component/Article";
 import {AppBar, CircularProgress, Toolbar, Typography} from "@mui/material";
 import {Provider} from "react-redux"
 import {PersistGate} from "redux-persist/integration/react";
@@ -15,7 +15,7 @@ export const App = () => (
                 <AppBar position="static">
                     <Toolbar>
                         <Typography variant="h6" component="div" sx={{mr: 2}}>
-                            <Link to="/">Home</Link>
+                            <Link to="/">Article</Link>
                         </Typography>
                         <Typography variant="h6" component="div" sx={{mr: 2}}>
                             <Link to="/chats">Chats</Link>
@@ -27,7 +27,7 @@ export const App = () => (
                 </AppBar>
 
                 <Routes>
-                    <Route path="/" element={<Home/>}/>
+                    <Route path="/" element={<Article/>}/>
                     <Route path="chats">
                         <Route index element={<Chats/>}/>
                         <Route path=":chatId" element={<Chats/>}/>
