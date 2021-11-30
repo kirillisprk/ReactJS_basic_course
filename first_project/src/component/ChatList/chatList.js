@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
+import {NavLink} from "react-router-dom";
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import {IconButton, ListItemButton, TextField} from "@mui/material";
-import './chat-list.scss'
-import {NavLink} from "react-router-dom";
 import Button from "@mui/material/Button";
 import {Delete} from "@mui/icons-material";
+import './chat-list.scss'
 
 export const ChatList = ({chatList, onAddChat, onDelete}) => {
     const [value, setValue] = useState('');
@@ -21,7 +21,6 @@ export const ChatList = ({chatList, onAddChat, onDelete}) => {
     return <List className="chat-list">
         <form className="chat-add-form" onSubmit={handleSubmit}>
             <TextField
-                id="outlined-multiline-flexible"
                 label="Enter Chat List"
                 fullWidth
                 variant="filled"

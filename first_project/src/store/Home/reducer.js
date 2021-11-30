@@ -1,40 +1,20 @@
-import {REQUEST_ARTICLE_FAIL, REQUEST_ARTICLE_LOADING, REQUEST_ARTICLE_SUCCESS} from "./actions";
-import {STATUS} from "../../component/Utils/Utils";
+import {SIGN_IN, SIGN_OUT} from "./actions";
 
 const initialState = {
-    articlesList: [],
-    request: {
-        status: STATUS.IDEL,
-        error: ''
-    }
+    authed: false
 }
 
-export const articlesReducer = (state = initialState, {type, payload}) => {
+export const homeReducer = (state = initialState, {type, payload}) => {
     switch (type) {
-        case REQUEST_ARTICLE_LOADING:
+        case SIGN_IN:
             return {
                 ...state,
-                request: {
-                    ...state.request,
-                    status: STATUS.LOADING
-                }
+                authed: true
             };
-        case REQUEST_ARTICLE_SUCCESS:
+        case SIGN_OUT:
             return {
                 ...state,
-                articlesList: payload,
-                request: {
-                    error: '',
-                    status: STATUS.SUCCESS
-                }
-            };
-        case REQUEST_ARTICLE_FAIL:
-            return {
-                ...state,
-                request: {
-                    error: payload,
-                    status: STATUS.ERROR
-                }
+                authed: false
             };
         default:
             return state

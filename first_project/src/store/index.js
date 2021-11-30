@@ -6,14 +6,15 @@ import {messagesReducer} from "./Messages/reducer";
 import storage from "redux-persist/lib/storage"
 import persistReducer from "redux-persist/es/persistReducer";
 import persistStore from "redux-persist/es/persistStore";
-import {articlesReducer} from "./Home/reducer";
+import {articlesReducer} from "./Article/reducer";
+import {homeReducer} from "./Home/reducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const config = {
     key: 'gbMsnger',
     storage,
-    blacklist: ['article']
+    blacklist: ['article', 'profile', 'chats,', 'messages']
 };
 const per = persistReducer(config,
     combineReducers({
@@ -21,6 +22,7 @@ const per = persistReducer(config,
         messages: messagesReducer,
         profile: profileReducer,
         article: articlesReducer,
+        home: homeReducer,
     }));
 export const store = createStore(
     per,

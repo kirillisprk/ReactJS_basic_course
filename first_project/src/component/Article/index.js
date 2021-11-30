@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import {Alert, Box, Card, ListItem, ListItemText, Skeleton, Stack, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {selectArticleError, selectArticleList, selectArticleLoading} from "../../store/Home/selectors";
-import {getArticle} from "../../store/Home/actions";
+import {selectArticleError, selectArticleList, selectArticleLoading} from "../../store/Article/selectors";
+import {getArticle} from "../../store/Article/actions";
 import List from "@mui/material/List";
 import Button from "@mui/material/Button";
 
@@ -43,7 +43,6 @@ export const Article = () => {
                                             component="span"
                                             variant="body2"
                                             color="text.primary">
-
                                         </Typography>
                                         {art.summary}
                                         <Typography variant="caption" display="block" gutterBottom>
