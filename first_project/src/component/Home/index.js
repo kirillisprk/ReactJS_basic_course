@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {SignForm} from "../SignForm";
-import {Link} from "react-router-dom";
 import {logIn} from "../../services/firebase";
 
 export const Home = () => {

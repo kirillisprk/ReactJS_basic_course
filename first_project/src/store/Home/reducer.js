@@ -4,7 +4,7 @@ const initialState = {
     authed: false
 }
 
-export const homeReducer = (state = initialState, {type, payload}) => {
+export const homeReducer = (state = initialState, {type}) => {
     switch (type) {
         case SIGN_IN:
             return {

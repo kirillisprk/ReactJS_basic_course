@@ -3,7 +3,7 @@ import './message.scss'
 
 export const MessagesList = ({messageList}) => {
     const messageListRef = useRef(null);
-    if (messageList) {
+    if (messageList.length > 0) {
         return <div ref={messageListRef} className="message-list">
             {messageList.map((message) => (
                 <div key={message.id}
@@ -14,7 +14,11 @@ export const MessagesList = ({messageList}) => {
             ))}
         </div>
     } else {
-        return <div ref={messageListRef} className="message-list"/>
+        return <>
+            <div ref={messageListRef} className="message-list">
+                <div className="empty-message">Добавьте сообщение</div>
+            </div>
+        </>
     }
 
 }

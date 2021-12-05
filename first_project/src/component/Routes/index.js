@@ -13,6 +13,7 @@ import {auth} from "../../services/firebase";
 import {signIn, signOut} from "../../store/Home/actions";
 import {initProfile} from "../../store/profile/actions";
 import {selectAuth} from "../../store/Home/selectors";
+import './style.scss'
 
 export const Router = () => {
     const dispatch = useDispatch();
@@ -36,19 +37,19 @@ export const Router = () => {
             <AppBar position="static">
                 <Toolbar>
                     {!checkAuth && <Typography variant="h6" component="div" sx={{mr: 2}}>
-                        <Link to="/">Войти</Link>
+                        <Link className="link-color" to="/">Войти</Link>
                     </Typography>}
                     {checkAuth && <Typography variant="h6" component="div" sx={{mr: 2}}>
-                        <Link to="/chats">Chats</Link>
+                        <Link className="link-color" to="/chats">Chats</Link>
                     </Typography>}
                     <Typography variant="h6" component="div" sx={{mr: 2}}>
-                        <Link to="/article">Article</Link>
+                        <Link className="link-color" to="/article">Article</Link>
                     </Typography>
                     {checkAuth && <Typography variant="h6" component="div" sx={{mr: 2}}>
-                        <Link to="/profile">Profile</Link>
+                        <Link className="link-color" to="/profile">Profile</Link>
                     </Typography>}
                     {!checkAuth && <Typography variant="h6" component="div">
-                        <Link to="/signup">Регистрация</Link>
+                        <Link className="link-color" to="/signup">Регистрация</Link>
                     </Typography>}
                 </Toolbar>
             </AppBar>

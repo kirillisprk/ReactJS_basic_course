@@ -1,5 +1,4 @@
 import {SignForm} from "../SignForm";
-import {Link} from "react-router-dom";
 import {signUp} from "../../services/firebase";
 import {useState} from "react";
 
