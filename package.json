@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "jest-fetch-mock": "^3.0.3"
+  }
+}
